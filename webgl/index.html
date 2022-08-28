@@ -4,11 +4,20 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>webgl-learn</title>
+  <title>webgl-demo</title>
 </head>
 <body>
+  矩阵维数:<input id="dimen"></input>
+  <button onclick="handleCompute()">执行计算</button>
   <script src="./js/WebglProgram.js"></script>
   <script src="./js/util.js"></script>
   <script src="./js/index.js"></script>
+  <script>
+    function handleCompute() {
+      const dimes = document.getElementById('dimen').value;
+      console.log('计算~~~');
+      timeCost(dimes);
+    }
+  </script>
 </body>
 </html>

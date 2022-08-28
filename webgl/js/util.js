@@ -37,7 +37,7 @@ function matrixMultiplyCPU(dimensions) {
 }
 
 
-matrixMultiplyCPU(300)  // matrixMultiplyCPU: 62.09ms
+// matrixMultiplyCPU(800)  // matrixMultiplyCPU: 62.09ms
 
 
 function changeBufferToGRBA(buffer) {

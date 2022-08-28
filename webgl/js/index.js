@@ -27,7 +27,7 @@ async function ShowTextureDemo() {
   return demoShowTexture.read();
 }
 
-ShowTextureDemo()
+// ShowTextureDemo()
 
 // matrix demo
 class MatrixTexture extends WebglProgram {
@@ -38,20 +38,25 @@ class MatrixTexture extends WebglProgram {
   }
 }
 
-async function ShowMatrixCompute(dimensions) {
+async function timeCost(dimensions) {
   console.log("dimensions", dimensions);
-  let result = null;
   const randomMatrix = createMatrix(dimensions, () =>
     Math.floor(Math.random() * 1000)
   );
   const randomMatrixU8 = new Uint8Array(randomMatrix.buffer);
-  console.time("MatrixCompute");
+  console.time("WebGL 计算");
   const showMatrixTexture = (window.showMatrixTexture = new MatrixTexture(
     dimensions
   ));
   await showMatrixTexture.init(randomMatrixU8, randomMatrixU8);
   showMatrixTexture.render();
-  result = showMatrixTexture.read();
-  console.timeEnd("MatrixCompute");
+  const webgl_result = showMatrixTexture.read();
+  console.log("WebGL 计算结果:",webgl_result);
+  console.timeEnd("WebGL 计算");
+
+  // 计算矩阵的平方
+  console.time("CPU 计算");
+  const cpu_result = matrixMultiply(dimensions,randomMatrix, randomMatrix);
+  console.timeEnd("CPU 计算");
+  console.log("CPU 计算结果:",cpu_result);
 }
-ShowMatrixCompute(300)
