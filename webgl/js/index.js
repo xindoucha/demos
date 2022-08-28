@@ -1,32 +1,12 @@
-// demo1
-// set output by distance of (0, 0)
-class Demo1 extends WebglProgram {
-  constructor(dimen, canvasSize) {
-    super(dimen, canvasSize);
-    document.body.appendChild(this.canvas);
-  }
-  async init() {
-    await super.init("demo1_v_shader.c", "demo1_f_shader.c");
-  }
-}
 
-async function showDemo1() {
-  const demo1 = (window.demo1 = new Demo1(3, 200));
-  await demo1.init();
-  demo1.render();
-  return demo1.read();
-}
-
-// showDemo1();
-
-// demo2
+// Texture Demo
 class TextureDemo extends WebglProgram {
   constructor(dimen, canvasSize) {
     super(dimen, canvasSize);
     document.body.appendChild(this.canvas);
   }
   async init(matrixA) {
-    await super.init("demo2_v_shader.c", "demo2_f_shader.c");
+    await super.init("texture_v_shader.c", "texture_f_shader.c");
     this.initTexture(0, "samplerA", matrixA);
   }
 }
@@ -42,17 +22,14 @@ async function ShowTextureDemo() {
   const randomMatrix = createMatrix(colorMap.length, (x, y) => colorMap[x][y]);
   const randomMatrixU8 = new Uint8Array(randomMatrix.buffer);
   const demoShowTexture = new TextureDemo(colorMap.length, 200);
-  // changeBufferToGRBA(randomMatrixU8);
   await demoShowTexture.init(randomMatrixU8);
   demoShowTexture.render();
   return demoShowTexture.read();
 }
 
-ShowTextureDemo().then((data) => {
-  console.log(data);
-});
+ShowTextureDemo()
 
-// matrix
+// matrix demo
 class MatrixTexture extends WebglProgram {
   async init(matrixA, matrixB) {
     await super.init("matrix_v_shader.c", "matrix_f_shader.c");
