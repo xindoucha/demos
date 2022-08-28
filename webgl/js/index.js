@@ -1,4 +1,3 @@
-
 // Texture Demo
 class TextureDemo extends WebglProgram {
   constructor(dimen, canvasSize) {
@@ -45,18 +44,16 @@ async function timeCost(dimensions) {
   );
   const randomMatrixU8 = new Uint8Array(randomMatrix.buffer);
   console.time("WebGL 计算");
-  const showMatrixTexture = (window.showMatrixTexture = new MatrixTexture(
-    dimensions
-  ));
+  const showMatrixTexture = new MatrixTexture(dimensions);
   await showMatrixTexture.init(randomMatrixU8, randomMatrixU8);
   showMatrixTexture.render();
   const webgl_result = showMatrixTexture.read();
-  console.log("WebGL 计算结果:",webgl_result);
+  console.log("WebGL 计算结果:", webgl_result);
   console.timeEnd("WebGL 计算");
 
   // 计算矩阵的平方
   console.time("CPU 计算");
-  const cpu_result = matrixMultiply(dimensions,randomMatrix, randomMatrix);
+  const cpu_result = matrixMultiply(dimensions, randomMatrix, randomMatrix);
+  console.log("CPU 计算结果:", cpu_result);
   console.timeEnd("CPU 计算");
-  console.log("CPU 计算结果:",cpu_result);
 }
