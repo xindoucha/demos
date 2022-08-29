@@ -144,6 +144,7 @@ class WebglProgram {
     let picBuf = new ArrayBuffer(this.canvas.width * this.canvas.height * 4);
     let picU8 = new Uint8Array(picBuf);
     let picU32 = new Uint32Array(picBuf);
+    // picU8.buffer === picU32.buffer 引用的是同一个 buffer 对象
     this.gl.readPixels(
       0,
       0,

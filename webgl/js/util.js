@@ -36,19 +36,3 @@ function matrixMultiplyCPU(dimensions) {
   console.timeEnd("CPU 计算");
 }
 // matrixMultiplyCPU(800)  // matrixMultiplyCPU: 62.09ms
-
-function changeBufferToGRBA(buffer) {
-  for (let i = 0; i < buffer.length; i = i + 4) {
-    const element = buffer.slice(i, i + 4);
-    createBlock(element);
-  }
-}
-
-function createBlock(value) {
-  let ele = document.createElement("div");
-  let box = document.getElementsByClassName("box")[0];
-  ele.className = "element";
-  ele.style.backgroundColor = `rgba(${value})`;
-  ele.innerText = `[${value}]`;
-  box.appendChild(ele);
-}

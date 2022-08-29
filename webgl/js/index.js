@@ -10,23 +10,32 @@ class TextureDemo extends WebglProgram {
   }
 }
 
-async function ShowTextureDemo() {
+async function showTextureDemo() {
   const colorMap = [
     // 红、绿、蓝
     [0xff0000ff, 0x00ff00ff, 0x0000ffff],
     [0xffff00ff, 0xff00ffff, 0x00ffffff],
     [0x000000ff, 0xffffffff, 0xf0f0f0ff],
   ];
-
   const randomMatrix = createMatrix(colorMap.length, (x, y) => colorMap[x][y]);
   const randomMatrixU8 = new Uint8Array(randomMatrix.buffer);
   const demoShowTexture = new TextureDemo(colorMap.length, 200);
   await demoShowTexture.init(randomMatrixU8);
   demoShowTexture.render();
-  return demoShowTexture.read();
+  demoShowTexture.read();
 }
+// showTextureDemo()
 
-// ShowTextureDemo()
+async function showTextureDemo2() {
+  const randomMatrix = new Uint32Array([908, 766, 271, 434]);
+  const randomMatrixU8 = new Uint8Array(randomMatrix.buffer);
+  const demoShowTexture = new TextureDemo(colorMap.length, 200);
+  await demoShowTexture.init(randomMatrixU8);
+  demoShowTexture.render();
+  const result = demoShowTexture.read();
+  console.log(result);
+}
+// showTextureDemo2()
 
 // matrix demo
 class MatrixTexture extends WebglProgram {
@@ -42,6 +51,8 @@ async function timeCost(dimensions) {
   const randomMatrix = createMatrix(dimensions, () =>
     Math.floor(Math.random() * 1000)
   );
+  // demo
+  // const randomMatrix = new Uint32Array([908,766,271,434])
   const randomMatrixU8 = new Uint8Array(randomMatrix.buffer);
   console.time("WebGL 计算");
   const showMatrixTexture = new MatrixTexture(dimensions);
