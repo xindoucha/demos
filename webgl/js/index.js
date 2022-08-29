@@ -29,13 +29,13 @@ async function showTextureDemo() {
 async function showTextureDemo2() {
   const randomMatrix = new Uint32Array([908, 766, 271, 434]);
   const randomMatrixU8 = new Uint8Array(randomMatrix.buffer);
-  const demoShowTexture = new TextureDemo(colorMap.length, 200);
+  const demoShowTexture = new TextureDemo(2, 200);
   await demoShowTexture.init(randomMatrixU8);
   demoShowTexture.render();
   const result = demoShowTexture.read();
   console.log(result);
 }
-// showTextureDemo2()
+showTextureDemo2()
 
 // matrix demo
 class MatrixTexture extends WebglProgram {
